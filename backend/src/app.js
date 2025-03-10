@@ -6,6 +6,10 @@ import express from "express";
 
 const app = express();
 
+//Definir la ruta
+app.use ("/api/products")
+
+
 //Exporto la constante para poder usar el express en otros lados
 export default app;
 
