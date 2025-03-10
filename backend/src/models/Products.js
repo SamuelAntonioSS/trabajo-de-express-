@@ -32,4 +32,4 @@ const productsSchema = new Schema({
     strict: false
 })
 
-export default model("Products", productsSchema);
+export default model("productsModel", productsSchema);
