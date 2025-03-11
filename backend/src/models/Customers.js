@@ -22,6 +22,16 @@ const customersSchema = new Schema({
         require: true,
         maxLength: 100
     },
+    address: {
+        type: String,
+        require: true,
+        maxLength: 100
+    },
+    hireDate: {
+        type: String,
+        require: true,
+        maxLength: 100
+    },
     password: {
         type: String,
         require: true,
@@ -32,12 +42,17 @@ const customersSchema = new Schema({
         require: true,
         maxLength: 8
     },
-    dui: {
+    dui:{
         type: String,
         require: true,
-        maxLength: 10
+        maxLength: 9
     },
-    isVerified: {
+    isssNumber:{
+        type: String,
+        require: true,
+        min: 0
+    },
+    isVerified:{
         type: Boolean
     }
 
