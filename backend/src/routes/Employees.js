@@ -1,6 +1,6 @@
 
 import express from "express";
-import employeesController from "../controllers/employeesControlers";
+import employeesController from "../controllers/employeesControlers.js";
 
 
 
@@ -12,7 +12,8 @@ router.route("/")
 .get(employeesController.getEmployees)
 .post(employeesController.insertEmployees)
 
-router("/:id")
+router
+.route("/:id")
 .put(employeesController.updateEmployees)
 .delete(employeesController.deleteEmployees);
 
