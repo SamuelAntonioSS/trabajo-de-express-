@@ -2,6 +2,7 @@
 import express from "express";
 import productsRoutes from "./routes/products.js";
 import customersRoutes from "./routes/customers.js";
+import EmployeesRoutes from "./models/Employees.js";
 
 // Creo un constante que es igual
 // a la libreria que importe y la ejecuta
@@ -16,6 +17,8 @@ app.use(express.json());
 app.use ("/api/products" , productsRoutes);
 
 app.use ("/api/customers", customersRoutes);
+
+app.use ("/api/employees", EmployeesRoutes);
 
 
 //Exporto la constante para poder usar el express en otros lados

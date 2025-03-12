@@ -1,5 +1,5 @@
 
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const employeesSchema = new Schema({
     name:{
@@ -40,4 +40,9 @@ const employeesSchema = new Schema({
     isVerified: {
         type: Boolean
     }
+},{
+    timestamps: true,
+    strict: false
 })
+
+export default model("employeesModel", employeesSchema);
