@@ -1,12 +1,13 @@
 //Se importa la libereia mongoose
 import mongoose from "mongoose";
+import { config } from "./config";
 
 //Guardo en una constante 
 // la direcciòn de mi base de datos
-const URI = "mongodb://localhost:27017/cocacolaDB"
+
 
 //Conectar la base de datos
-mongoose.connect(URI)
+mongoose.connect(config.db.URI)
 
 //----- comprobacion que la base sirve
 

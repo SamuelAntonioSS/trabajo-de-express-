@@ -11,6 +11,11 @@ const branchesSchema = new Schema({
         require: true,
         maxLength: 100
     },
+    birthday:{
+        type: Date,
+        require: true,
+        min: 0,
+    },
     telephone:{
         type: Number,
         require: true,
