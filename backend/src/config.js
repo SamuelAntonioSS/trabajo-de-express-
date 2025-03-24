@@ -6,9 +6,17 @@ dotenv.config();
 
 export const config = {
   db: {
-    URI: process.env.DB_URI,
+    URI: process.env.DB_URI || "mongodb://localhost:27017/cocacolaDB",
   },
   server: {
-    port: process.env.PORT,
+    port: process.env.PORT ,
+  },
+  JWT:{
+    secret: process.env.JWT_SECRET,
+    expiresIn: process.env.JWT_EXPIRES,
+  },
+  emailAdmin: {
+    email: process.env.ADMIN_EMAIL,
+    password: process.env.ADMIN_PASSWORD,
   },
 };

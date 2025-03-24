@@ -1,6 +1,6 @@
 //Se importa la libereia mongoose
 import mongoose from "mongoose";
-import { config } from "./config";
+import { config } from "./config.js";
 
 //Guardo en una constante 
 // la direcciòn de mi base de datos
