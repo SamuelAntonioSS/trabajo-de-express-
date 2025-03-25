@@ -1,15 +1,16 @@
 // Importo todo lo de la libreria express
 import express from "express";
-import productsRoutes from "./routes/products.js";
-import customersRoutes from "./routes/customers.js";
-import EmployeesRoutes from "./routes/Employees.js";
-import BranchesRoutes from "./routes/Branches.js";
-import reviewsRoutes from "./routes/reviews.js";
+import productsRoutes from "./src/routes/products.js";
+import customersRoutes from "./src/routes/customers.js";
+import EmployeesRoutes from "./src/routes/Employees.js";
+import BranchesRoutes from "./src/routes/Branches.js";
+import reviewsRoutes from "./src/routes/reviews.js";
 
 import cookieParser from "cookie-parser";
-import registerEmployeesRoutes from "./routes/registerEmployees.js"
+import registerEmployeesRoutes from "./src/routes/registerEmployees.js"
 //LOGIN
-import loginController from "./routes/login.js";
+import loginRoutes from "./src/routes/login.js";
+import logoutRoutes from "./src/routes/logout.js"
 // Creo un constante que es igual
 // a la libreria que importe y la ejecuta
 
@@ -36,7 +37,8 @@ app.use ("/api/reviews", reviewsRoutes);
 app.use("/api/registerEmployeess", registerEmployeesRoutes);
 
 // L O G I N
-app.use("/api/login", loginController);
+app.use("/api/login", loginRoutes);
+app.use("/api/logout", logoutRoutes);
 
 
 //Exporto la constante para poder usar el express en otros lados
