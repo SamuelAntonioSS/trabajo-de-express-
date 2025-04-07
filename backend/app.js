@@ -8,6 +8,7 @@ import reviewsRoutes from "./src/routes/reviews.js";
 
 import cookieParser from "cookie-parser";
 import registerEmployeesRoutes from "./src/routes/registerEmployees.js"
+import registerClientsRoutes from "./src/routes/registerClients.js";
 //LOGIN
 import loginRoutes from "./src/routes/login.js";
 import logoutRoutes from "./src/routes/logout.js"
@@ -35,6 +36,8 @@ app.use ("/api/branches", BranchesRoutes);
 app.use ("/api/reviews", reviewsRoutes);
 
 app.use("/api/registerEmployeess", registerEmployeesRoutes);
+
+app.use("/api/registerClients",registerClientsRoutes );
 
 // L O G I N
 app.use("/api/login", loginRoutes);
