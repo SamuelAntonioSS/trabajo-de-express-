@@ -61,7 +61,7 @@ registerClientsController.register = async (req, res) => {
             {expiresIn: "2h"}
         )
 
-        res.cookie("VerificationToken", tokenCode, {maxAge: 2*60*60*1000})
+        res.cookies("VerificationToken", tokenCode, {maxAge: 2*60*60*1000})
 
         // Enviar el correo electronico
         //1- Trasporter => Quien lo envia
@@ -106,7 +106,7 @@ registerClientsController.register = async (req, res) => {
 registerClientsController.verifyCodeEmail = async (req, res) => {
     const {verificationCode} = req.body;
 
-    const token = req.cookie.verificationToken;
+    const token = req.cookies.VerificationToken;
 
     try{
 
