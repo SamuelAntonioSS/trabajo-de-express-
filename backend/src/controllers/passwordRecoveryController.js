@@ -5,9 +5,14 @@ import clientsModel from "../models/Customers.js";
 import employeeModel from "../models/Employees.js";
 
 import { HTMLRecoveryEmail, sendEmail } from "../utils/mailPasswordRecovery.js";
-import { config } from "../config";
+import { config } from "../config.js";
+
 
 // 1- Crea un array de funciones 
+
+const passwordRecoveryController = {};
+
+
  passwordRecoveryController.requestCode = async (req, res) =>{
     const {email} = req.body;
 
@@ -57,3 +62,45 @@ import { config } from "../config";
         console.log("error" + error )
     }
 }
+
+//////////// VERIFICAR EL CÒDIGO QUE ME ENVIARON POR CORREO
+passwordRecoveryController.verifyCode = async (req, res) =>{
+    const { code } = req.body;
+    
+    try {
+        // Obtener el token
+        const token = req.cookies.tokenRecoveryCode;
+
+        // Extraer todos los datos del token
+        const decoded = jsonwebtoken.verify(token,config.JWT.secret)
+
+        // Comparar el codigo que esta guardado en el token 
+        // con el codigo que el usuario escribió
+        if(decoded.code !== code){
+            return res.json({ message: "Invalid code mi rey"});
+        }
+
+        //Marcamos el token como verficado (si es correcto)
+        const newToken = jsonwebtoken.sign(
+            //1- ¿Que vamos a guardar?
+            {email: decoded.email,
+                code: decoded.code,
+                userType: decoded.userType,
+                verfied: true
+            },
+            //2- secret key
+            config.JWT.secret,
+            //3- ¿Cuando vence?
+            {expiresIn: "25m"}
+        )
+
+        res.cookie("tokenRecoveryCode", newToken, {maxAge:25*60*1000})
+
+        res.json({message: "Code verified sucessfully osea si esta bien mi rey"})
+    } catch (error) {
+        console.log("error" + error);
+    }
+    
+};
+
+export default passwordRecoveryController;
