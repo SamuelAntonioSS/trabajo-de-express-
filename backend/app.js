@@ -13,11 +13,13 @@ import registerClientsRoutes from "./src/routes/registerClients.js";
 import loginRoutes from "./src/routes/login.js";
 import logoutRoutes from "./src/routes/logout.js"
 import passwordRecoveryRoutes from "./src/routes/passwordRecovery.js"
+/////
+import blogRoutes from "./src/routes/blog.js"
 // Creo un constante que es igual
 // a la libreria que importe y la ejecuta
 
 const app = express();
-
+//d
 
 // Uso middleware para que acepte datos Json
 app.use(express.json());
@@ -45,6 +47,8 @@ app.use("/api/login", loginRoutes);
 app.use("/api/logout", logoutRoutes);
 
 app.use("/api/passwordRecovery", passwordRecoveryRoutes);
+
+app.use("/api/blog", blogRoutes);
 
 
 //Exporto la constante para poder usar el express en otros lados

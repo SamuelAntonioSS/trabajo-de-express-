@@ -127,13 +127,13 @@ passwordRecoveryController.newPassword = async (req, res) =>{
             //Guardamos la nueva contradeña en la base de datos
             if(decoded.userType === "client"){
                 user = await clientsModel.findOneAndUpdate(
-                    {email},
+                    {email: decoded.email},
                     {password: hashedPassword},
                     {new: true}
                 )
             }else if (decoded.userType === "employee"){
                 user = await employeeModel.findOneAndUpdate(
-                    {email},
+                    {email: decoded.email},
                     {password: hashedPassword},
                     {new: true}
                 )
