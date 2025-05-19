@@ -15,6 +15,7 @@ import logoutRoutes from "./src/routes/logout.js"
 import passwordRecoveryRoutes from "./src/routes/passwordRecovery.js"
 /////
 import blogRoutes from "./src/routes/blog.js"
+import { validateAuthToken } from "./src/middlewares/validateAuthToken.js";
 // Creo un constante que es igual
 // a la libreria que importe y la ejecuta
 
@@ -32,7 +33,7 @@ app.use ("/api/products" , productsRoutes);
 
 app.use ("/api/customers", customersRoutes);
 
-app.use ("/api/employees", EmployeesRoutes);
+app.use ("/api/employees", validateAuthToken(["employees"]), EmployeesRoutes);
 
 app.use ("/api/branches", BranchesRoutes);
 
