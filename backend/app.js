@@ -16,6 +16,8 @@ import passwordRecoveryRoutes from "./src/routes/passwordRecovery.js"
 /////
 import blogRoutes from "./src/routes/blog.js"
 import { validateAuthToken } from "./src/middlewares/validateAuthToken.js";
+import cors from "cors"
+
 // Creo un constante que es igual
 // a la libreria que importe y la ejecuta
 
@@ -24,6 +26,9 @@ const app = express();
 
 // Uso middleware para que acepte datos Json
 app.use(express.json());
+
+app.use(cors());
+
 
 //Que acepte cookies
 app.use(cookieParser())

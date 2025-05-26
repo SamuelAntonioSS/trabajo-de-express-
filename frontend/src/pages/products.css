@@ -1,0 +1,66 @@
+/* AgregarProduct.css */
+.add-product-form {
+    max-width: 450px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f8fafc; /* un gris muy claro */
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .add-product-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #1e40af; /* azul oscuro */
+  }
+  
+  .add-product-form form > div {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-product-form label {
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    color: #553348; /* gris oscuro */
+  }
+  
+  .add-product-form input[type="text"],
+  .add-product-form input[type="number"],
+  .add-product-form textarea {
+    padding: 0.6rem 0.75rem;
+    border: 1.8px solid #292cda; /* azul grisáceo */
+    border-radius: 3px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    resize: vertical; /* solo textarea puede redimensionarse verticalmente */
+    min-height: 40px; /* para textarea */
+  }
+  
+  .add-product-form input[type="text"]:focus,
+  .add-product-form input[type="number"]:focus,
+  .add-product-form textarea:focus {
+    outline: none;
+    border-color: #2563eb; /* azul vivo */
+    box-shadow: 0 0 6px #93c5fd;
+  }
+  
+  .add-product-form button[type="submit"] {
+    width: 100%;
+    background-color: #2563eb; /* azul vivo */
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-product-form button[type="submit"]:hover {
+    background-color: #1e40af; /* azul más oscuro al hover */
+  }
+  

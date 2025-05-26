@@ -1,0 +1,88 @@
+.add-employee-form {
+    max-width: 450px;
+    margin: 2rem auto;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(to right, #e77c17, #d8b51b);   
+     border-radius: 8px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .add-employee-form h2 {
+    text-align: center;
+    color: #1e40af;
+    margin-bottom: 1rem;
+  }
+  
+  .add-employee-form form label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #334155;
+  }
+  
+  .add-employee-form input[type="text"],
+  .add-employee-form input[type="email"],
+  .add-employee-form input[type="password"],
+  .add-employee-form input[type="date"],
+  .add-employee-form input[type="tel"] {
+    padding: 0.5rem;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 0.25rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .add-employee-form input[type="text"]:focus,
+  .add-employee-form input[type="email"]:focus,
+  .add-employee-form input[type="password"]:focus,
+  .add-employee-form input[type="date"]:focus,
+  .add-employee-form input[type="tel"]:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 5px #93c5fd;
+  }
+  
+  .add-employee-form input[type="checkbox"] {
+    width: auto;
+    margin-top: 0.5rem;
+    align-self: flex-start;
+  }
+  
+  .add-employee-form button {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-employee-form button:hover {
+    background-color: #1e40af;
+  }
+
+  .view-employees-btn {
+    width: 100%;
+    margin-top: 0.75rem;
+    padding: 0.6rem;
+    background-color: #f97316; /* naranja */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .view-employees-btn:hover {
+    background-color: #c2410c;
+  }
+  
+  

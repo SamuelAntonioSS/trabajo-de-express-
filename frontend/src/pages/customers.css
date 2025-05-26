@@ -1,0 +1,70 @@
+.add-customer-form {
+    max-width: 450px;
+    margin: 2rem auto;
+    padding: 1.5rem 2rem;
+    background: #f0f4f8;
+    border-radius: 8px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .add-customer-form h2 {
+    text-align: center;
+    color: #1e40af;
+    margin-bottom: 1rem;
+  }
+  
+  .add-customer-form form label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #334155;
+  }
+  
+  .add-customer-form input[type="text"],
+  .add-customer-form input[type="email"],
+  .add-customer-form input[type="password"],
+  .add-customer-form input[type="date"],
+  .add-customer-form input[type="tel"] {
+    padding: 0.5rem;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 0.25rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .add-customer-form input[type="text"]:focus,
+  .add-customer-form input[type="email"]:focus,
+  .add-customer-form input[type="password"]:focus,
+  .add-customer-form input[type="date"]:focus,
+  .add-customer-form input[type="tel"]:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 5px #93c5fd;
+  }
+  
+  .add-customer-form input[type="checkbox"] {
+    width: auto;
+    margin-top: 0.5rem;
+    align-self: flex-start;
+  }
+  
+  .add-customer-form button {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-customer-form button:hover {
+    background-color: #1e40af;
+  }
+  

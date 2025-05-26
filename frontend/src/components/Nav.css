@@ -1,0 +1,66 @@
+/* Nav.css */
+nav {
+    background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Fondo con gradiente */
+    padding: 1rem 4rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+  }
+  
+  nav .text-lg {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  nav ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+  
+  nav ul li {
+    position: relative;
+  }
+  
+  nav ul li a {
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem; /* Border-radius para un borde más suave */
+    transition: color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+  }
+  
+  nav ul li a:hover {
+    color: #f3f4f6; /* Color gris claro al hacer hover */
+    transform: scale(1.05); /* Efecto de aumento al hacer hover */
+  }
+  
+  nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #f3f4f6; /* Subrayado sutil */
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+  }
+  
+  nav ul li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
