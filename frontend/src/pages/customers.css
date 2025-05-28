@@ -1,70 +1,130 @@
+/* Global fix: box-sizing para evitar que padding rompa el layout */
+* {
+  box-sizing: border-box;
+}
+
+/* Layout principal */
+.page-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 6rem 5rem 5rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Formulario */
 .add-customer-form {
-    max-width: 450px;
-    margin: 2rem auto;
-    padding: 1.5rem 2rem;
-    background: #f0f4f8;
-    border-radius: 8px;
-    box-shadow: 0 5px 12px rgba(0,0,0,0.1);
-    font-family: Arial, sans-serif;
-  }
-  
-  .add-customer-form h2 {
-    text-align: center;
-    color: #1e40af;
-    margin-bottom: 1rem;
-  }
-  
-  .add-customer-form form label {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-    font-weight: 600;
-    color: #334155;
-  }
-  
-  .add-customer-form input[type="text"],
-  .add-customer-form input[type="email"],
-  .add-customer-form input[type="password"],
-  .add-customer-form input[type="date"],
-  .add-customer-form input[type="tel"] {
-    padding: 0.5rem;
-    border: 1.5px solid #cbd5e1;
-    border-radius: 5px;
-    font-size: 1rem;
-    margin-top: 0.25rem;
-    transition: border-color 0.3s ease;
-  }
-  
-  .add-customer-form input[type="text"]:focus,
-  .add-customer-form input[type="email"]:focus,
-  .add-customer-form input[type="password"]:focus,
-  .add-customer-form input[type="date"]:focus,
-  .add-customer-form input[type="tel"]:focus {
-    outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 5px #93c5fd;
-  }
-  
-  .add-customer-form input[type="checkbox"] {
-    width: auto;
-    margin-top: 0.5rem;
-    align-self: flex-start;
-  }
-  
-  .add-customer-form button {
-    width: 100%;
-    padding: 0.7rem;
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .add-customer-form button:hover {
-    background-color: #1e40af;
-  }
-  
+  flex: 1 1 450px;
+  max-width: 500px;
+  padding: 2rem;
+  background: linear-gradient(to right, #f1141488, #da5b5b91);   
+  border-radius: 8px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  overflow: hidden; /* evita desbordes visuales */
+}
+
+.add-customer-form h2 {
+  text-align: center;
+  color: #1e40af;
+  margin-bottom: 1.5rem;
+}
+
+/* Estilo de grilla para 2 columnas */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.5rem;
+}
+
+.form-grid label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: #334155;
+}
+
+/* Inputs */
+.add-customer-form input[type="text"],
+.add-customer-form input[type="email"],
+.add-customer-form input[type="password"],
+.add-customer-form input[type="date"],
+.add-customer-form input[type="tel"] {
+  padding: 0.7rem;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  margin-top: 0.3rem;
+  transition: border-color 0.3s ease;
+}
+
+.add-customer-form input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 5px #93c5fd;
+}
+
+/* Checkbox */
+.checkbox-label {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin: 0;
+  width: auto;
+}
+
+/* Botón */
+.add-customer-form button {
+  grid-column: span 2;
+  width: 100%;
+  padding: 1rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.add-customer-form button:hover {
+  background-color: #1e40af;
+}
+
+/* Lista de clientes */
+.customer-list {
+  flex: 1 1 400px;
+  max-width: 500px;
+  background-color: #ffffff;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.05);
+  font-family: Arial, sans-serif;
+}
+
+.customer-list h2 {
+  color: #1e40af;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.customer-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.customer-list li {
+  background: #f8fafc;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}

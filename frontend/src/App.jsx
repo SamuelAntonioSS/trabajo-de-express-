@@ -5,6 +5,7 @@ import AgregarProduct from "./pages/products";
 import AgregarEmployee from "./pages/employees";
 import AgregarCustomer from "./pages/customers";
 import VerEmpleados from "./pages/verEmpleados";
+import ListaCustomers from "./pages/ListaCustomers";
 import './App.css'
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
         <Route path="agregaremployee" element={<AgregarEmployee />} />
         <Route path="agregarcustomer" element={<AgregarCustomer />} />
         <Route path="verempleados" element={<VerEmpleados />} />
+        <Route path="listacustomers" element={<ListaCustomers/>} />
+
 
 
 

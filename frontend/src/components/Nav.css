@@ -1,9 +1,12 @@
 /* Nav.css */
 nav {
-    background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Fondo con gradiente */
+    background: linear-gradient(90deg, #ca2014, #b95c5c); /* Fondo con gradiente */
     padding: 1rem 4rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: sticky;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
     top: 0;
     z-index: 1000;
   }
