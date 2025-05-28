@@ -8,9 +8,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
-  margin: 6rem 5rem 5rem;
+  margin: 6rem 5rem 5rem; /* Aumentar el margen superior para el espacio debajo del navbar */
   justify-content: center;
   align-items: flex-start;
+  padding-top: 4rem; /* Añadir un padding para dar más espacio */
 }
 
 /* Formulario */
@@ -18,23 +19,85 @@
   flex: 1 1 450px;
   max-width: 500px;
   padding: 2rem;
-  background: linear-gradient(to right, #f1141488, #da5b5b91);   
+  background: linear-gradient(to right, #f1141488, #da5b5b91);
   border-radius: 8px;
   box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
-  overflow: hidden; /* evita desbordes visuales */
+  overflow: hidden; /* Evita desbordes visuales */
 }
 
+/* Estilo para la lista de clientes */
+.customer-list {
+  flex: 1 1 400px;
+  max-width: 500px;
+  background-color: #ffffff;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.05);
+  font-family: Arial, sans-serif;
+}
+
+.customer-list h2 {
+  color: #1e40af;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.customer-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.customer-list li {
+  background: #f8fafc;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.customer-info {
+  flex-grow: 1;
+  font-weight: bold;
+}
+
+.customer-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.customer-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #4b5563;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.customer-actions button:hover {
+  color: #2563eb;
+}
+
+.customer-actions button i {
+  margin-right: 0.3rem;
+}
+
+/* Formulario de agregar cliente */
 .add-customer-form h2 {
   text-align: center;
   color: #1e40af;
   margin-bottom: 1.5rem;
 }
 
-/* Estilo de grilla para 2 columnas */
+/* Estilo de grilla para 2 columnas con un espacio ajustado */
 .form-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr; /* Proporción 1:2 entre label e input */
   gap: 1rem 1.5rem;
 }
 
@@ -43,14 +106,12 @@
   flex-direction: column;
   font-weight: 600;
   color: #334155;
+  justify-content: center; /* Centra el texto verticalmente */
+  margin: 0; /* Elimina margen innecesario */
 }
 
-/* Inputs */
-.add-customer-form input[type="text"],
-.add-customer-form input[type="email"],
-.add-customer-form input[type="password"],
-.add-customer-form input[type="date"],
-.add-customer-form input[type="tel"] {
+.form-grid input {
+  width: 100%; /* Asegura que los inputs ocupen el 100% del espacio disponible */
   padding: 0.7rem;
   border: 1.5px solid #cbd5e1;
   border-radius: 5px;
@@ -59,6 +120,7 @@
   transition: border-color 0.3s ease;
 }
 
+/* Estilos de los inputs cuando están en foco */
 .add-customer-form input:focus {
   outline: none;
   border-color: #2563eb;
@@ -97,34 +159,4 @@
 
 .add-customer-form button:hover {
   background-color: #1e40af;
-}
-
-/* Lista de clientes */
-.customer-list {
-  flex: 1 1 400px;
-  max-width: 500px;
-  background-color: #ffffff;
-  padding: 1.5rem 2rem;
-  border-radius: 8px;
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.05);
-  font-family: Arial, sans-serif;
-}
-
-.customer-list h2 {
-  color: #1e40af;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.customer-list ul {
-  list-style: none;
-  padding: 0;
-}
-
-.customer-list li {
-  background: #f8fafc;
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #e2e8f0;
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
 }

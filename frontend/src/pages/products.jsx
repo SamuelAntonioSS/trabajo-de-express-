@@ -20,8 +20,20 @@ const AgregarProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/api/products', product);
-      console.log('Producto agregado:', response.data);
+      const response = await fetch('http://localhost:4000/api/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(product),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al agregar el producto');
+      }
+
+      const data = await response.json();
+      console.log('Producto agregado:', data);
       alert('Producto agregado exitosamente');
       setProduct({ name: '', description: '', price: '', stock: '' });
     } catch (error) {

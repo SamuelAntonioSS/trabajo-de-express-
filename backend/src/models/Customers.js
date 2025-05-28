@@ -45,7 +45,7 @@ const customersSchema = new Schema({
     dui:{
         type: String,
         require: true,
-        maxLength: 9
+        maxLength: 10
     },
     isssNumber:{
         type: String,
