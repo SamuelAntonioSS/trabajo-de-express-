@@ -12,12 +12,16 @@ employeesController.getEmployees = async(req, res) =>{
 
 // I N S E R T 
 
-employeesController.insertEmployees = async(req, res) =>{
-    const {name, lastName, birthday, email, addres, hireDate, password, telephone, dui, issNumber, isVerified} = req.body;
-    const newEmployees = new employeesModel({name, lastName, birthday, email, addres, hireDate, password, telephone, dui, issNumber, isVerified})
-    await newEmployees.save()
-    res.json({message: "employees saved"});
-}
+employeesController.insertEmployees = async (req, res) => {
+  try {
+    const newEmployees = new employeesModel(req.body);
+    await newEmployees.save();
+    res.json({ message: "employees saved" });
+  } catch (error) {
+    console.error("Error al guardar empleado:", error);
+    res.status(500).json({ message: "Error al guardar", error: error.message });
+  }
+};
 
 // D E L E T E 
 

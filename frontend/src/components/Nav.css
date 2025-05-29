@@ -1,6 +1,6 @@
 /* Nav.css */
 nav {
-  background: linear-gradient(90deg, #ca2014, #b95c5c); /* Fondo con gradiente */
+  background: linear-gradient(90deg, #ca2014, #b95c5c);
   padding: 1rem 4rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -9,7 +9,17 @@ nav {
   right: 0;
   top: 0;
   z-index: 1000;
+  height: 95px; /* Altura fija para facilitar el padding */
+  display: flex;
+  align-items: center; /* Para centrar contenido vertical */
 }
+
+body {
+  padding-top: 60px;
+    background: linear-gradient(90deg, #ca20142d, #b95c5c);
+
+}
+
 
 nav .container {
   display: flex;

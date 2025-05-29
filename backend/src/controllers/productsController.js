@@ -1,63 +1,108 @@
 import productsModel from "../models/Products.js";
-import multer from "multer";
+import cloudinary from "cloudinary";
+import fs from "fs-extra"; // fs-extra tiene funciones para manejo de archivos mejoradas
 import path from "path";
+import { config } from "../config.js"; // donde tienes las variables de entorno para Cloudinary
 
-// Configuración de multer para guardar imágenes en el servidor
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // Carpeta donde se guardarán las imágenes
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); // Renombramos la imagen con la fecha actual
-  }
+// Configurar Cloudinary
+cloudinary.v2.config({
+  cloud_name: config.cloudinary.cloudinary_name,
+  api_key: config.cloudinary.cloudinary_api_key,
+  api_secret: config.cloudinary.cloudinary_api_secret,
 });
 
-const upload = multer({ storage: storage });
-
-// Rutas para el controlador de productos
 const productsController = {};
 
 // Obtener todos los productos
 productsController.getProducts = async (req, res) => {
-  const products = await productsModel.find();
-  res.json(products);
+  try {
+    const products = await productsModel.find();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: "Error al obtener productos", error });
+  }
 };
 
-// Insertar un producto
+// Insertar un producto con subida a Cloudinary
 productsController.insertProducts = async (req, res) => {
-  const { name, description, price, stock } = req.body;
-  const imageUrl = req.file ? `/uploads/${req.file.filename}` : ''; // Si se sube una imagen, la guardamos en la carpeta "uploads"
-  const newProduct = new productsModel({
-    name,
-    description,
-    price,
-    stock,
-    image: imageUrl,  // Guardamos la URL de la imagen
-  });
-  
-  await newProduct.save();
-  res.json({ message: "Product saved" });
+  try {
+    const { name, description, price, stock } = req.body;
+
+    let imageUrl = "";
+
+    if (req.file) {
+      // Subir imagen a Cloudinary
+      const result = await cloudinary.v2.uploader.upload(req.file.path, {
+        folder: "products", // Carpeta en Cloudinary opcional
+      });
+      imageUrl = result.secure_url;
+
+      // Eliminar imagen local luego de subirla
+      await fs.unlink(req.file.path);
+    }
+
+    const newProduct = new productsModel({
+      name,
+      description,
+      price,
+      stock,
+      image: imageUrl,
+    });
+
+    await newProduct.save();
+
+    res.json({ message: "Producto guardado", product: newProduct });
+  } catch (error) {
+    res.status(500).json({ message: "Error al guardar producto", error });
+  }
 };
 
-// Eliminar un producto
-productsController.deleteProduct = async (req, res) => {
-  await productsModel.findByIdAndDelete(req.params.id);
-  res.json({ message: "Product deleted" });
-};
-
-// Actualizar un producto
+// Actualizar producto con imagen en Cloudinary
 productsController.updateProduct = async (req, res) => {
-  const { name, description, price, stock } = req.body;
-  const imageUrl = req.file ? `/uploads/${req.file.filename}` : '';  // Si se sube una nueva imagen, actualizamos la URL
-  const updatedProduct = await productsModel.findByIdAndUpdate(req.params.id, {
-    name,
-    description,
-    price,
-    stock,
-    image: imageUrl,
-  }, { new: true });
-  
-  res.json({ message: "Product updated", product: updatedProduct });
+  try {
+    const { name, description, price, stock } = req.body;
+    let imageUrl = "";
+
+    if (req.file) {
+      // Subir nueva imagen
+      const result = await cloudinary.v2.uploader.upload(req.file.path, {
+        folder: "products",
+      });
+      imageUrl = result.secure_url;
+
+      // Eliminar local
+      await fs.unlink(req.file.path);
+    }
+
+    // Si no subió imagen nueva, no modificamos la existente
+    const updateData = {
+      name,
+      description,
+      price,
+      stock,
+    };
+    if (imageUrl) updateData.image = imageUrl;
+
+    const updatedProduct = await productsModel.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { new: true }
+    );
+
+    res.json({ message: "Producto actualizado", product: updatedProduct });
+  } catch (error) {
+    res.status(500).json({ message: "Error al actualizar producto", error });
+  }
+};
+
+// Eliminar producto
+productsController.deleteProduct = async (req, res) => {
+  try {
+    await productsModel.findByIdAndDelete(req.params.id);
+    res.json({ message: "Producto eliminado" });
+  } catch (error) {
+    res.status(500).json({ message: "Error al eliminar producto", error });
+  }
 };
 
 export default productsController;

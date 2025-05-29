@@ -1,89 +1,166 @@
+/* Contenedor principal con flexbox */
+.container-employees {
+  display: flex;
+  justify-content: flex-start;
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 6rem auto 0;
+  padding: 1rem;
+  box-sizing: border-box;
+  min-width: 980px; /* para evitar que se rompa el flex en pantallas pequeñas */
+  
+}
+
+/* Formulario */
 .add-employee-form {
-  max-width: 450px;
-  margin: 2rem auto;
-  padding: 4rem 2rem;
-  background: linear-gradient(to right, #e77c17, #1d7e2a);   
-  border-radius: 15px;
-  box-shadow: 0 5px 12px rgba(0,0,0,0.1);
-  font-family: Arial, sans-serif;
+  width: 400px;
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+    background: linear-gradient(90deg, #ca201477, #b95c5c);
+
 }
 
 .add-employee-form h2 {
-  text-align: center;
-  color: #06080f;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: #333;
 }
 
-.add-employee-form form label {
-  display: flex;
-  flex-direction: column;
+/* Estilo etiquetas e inputs */
+.add-employee-form label {
+  display: block;
   margin-bottom: 1rem;
+  font-family: Arial, sans-serif;
   font-weight: 600;
-  color: #334155;
-  align-items: center; /* Alinea los elementos dentro del label */
+  color: #444;
 }
 
 .add-employee-form input[type="text"],
 .add-employee-form input[type="email"],
 .add-employee-form input[type="password"],
-.add-employee-form input[type="date"],
-.add-employee-form input[type="tel"] {
+.add-employee-form input[type="tel"],
+.add-employee-form input[type="date"] {
+  width: 100%;
   padding: 0.5rem;
-  border: 1.5px solid #cbd5e1;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  box-sizing: border-box;
   font-size: 1rem;
-  margin-top: 0.25rem;
-  transition: border-color 0.3s ease;
-  width: 100%; /* Asegura que los inputs no excedan el ancho del formulario */
-  box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
-}
-
-.add-employee-form input[type="text"]:focus,
-.add-employee-form input[type="email"]:focus,
-.add-employee-form input[type="password"]:focus,
-.add-employee-form input[type="date"]:focus,
-.add-employee-form input[type="tel"]:focus {
-  outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 5px #93c5fd;
+  font-family: Arial, sans-serif;
 }
 
 .add-employee-form input[type="checkbox"] {
-  width: auto;
-  margin-top: 0.5rem;
-  align-self: flex-start;
+  margin-left: 0.5rem;
+  transform: scale(1.2);
 }
 
+/* Botón submit */
 .add-employee-form button {
-  width: 100%;
-  padding: 0.7rem;
-  background-color: #2563eb;
-  color: white;
+  margin-top: 1rem;
+  padding: 0.7rem 1.2rem;
+  background-color: #007BFF;
   border: none;
   border-radius: 6px;
+  color: white;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .add-employee-form button:hover {
-  background-color: #e20535;
+  background-color: #0056b3;
 }
 
-.view-employees-btn {
+/* Contenedor de la tabla */
+.employees-table-container {
+  max-width: 550px;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  background-color: white;
+  box-sizing: border-box;
+      background: linear-gradient(90deg, #3f3dce77, #4065dd44);
+
+}
+
+/* Título tabla */
+.employees-table-container h3 {
+  margin-bottom: 1rem;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Tabla */
+.employees-table-container table {
   width: 100%;
-  margin-top: 0.75rem;
-  padding: 0.6rem;
-  background-color: #f97316; /* naranja */
-  color: white;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+}
+
+/* Encabezados y celdas */
+.employees-table-container th,
+.employees-table-container td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* Encabezados */
+.employees-table-container th {
+  background-color: #f0f0f0;
+  font-weight: 700;
+  color: #222;
+}
+
+/* Botones en las filas */
+.employees-table-container button {
+  margin-right: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 1.1rem;
   border: none;
-  border-radius: 6px;
-  font-weight: bold;
+  border-radius: 4px;
   cursor: pointer;
+  background-color: #6c757d;
+  color: white;
   transition: background-color 0.3s ease;
 }
 
-.view-employees-btn:hover {
-  background-color: #c2410c;
+.employees-table-container button:hover {
+  background-color: #495057;
+}
+
+/* Botón eliminar rojo */
+.employees-table-container button:last-child {
+  background-color: #dc3545;
+}
+
+.employees-table-container button:last-child:hover {
+  background-color: #a71d2a;
+}
+
+/* Responsive básico: en pantallas muy chicas, el contenedor flex se hace columna */
+@media (max-width: 1000px) {
+  .container-employees {
+    flex-direction: column;
+    min-width: auto;
+    max-width: 100%;
+    margin: 2rem auto;
+  }
+
+  .add-employee-form,
+  .employees-table-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .employees-table-container {
+    margin-top: 2rem;
+  }
 }

@@ -1,14 +1,13 @@
-import { useState } from "react";
-import axios from "axios"; // recuerda instalar axios: npm install axios
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./employees.css"; // si quieres agregar estilos, opcional
+import "./employees.css";
 
 const AgregarEmployee = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [employees, setEmployees] = useState([]);
+  const [editingId, setEditingId] = useState(null);
 
   const [employee, setEmployee] = useState({
-
-    
     name: "",
     lastName: "",
     birthday: "",
@@ -18,6 +17,20 @@ const AgregarEmployee = () => {
     dui: "",
     isVerified: false,
   });
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
+
+  const fetchEmployees = async () => {
+    try {
+      const res = await fetch("http://localhost:4000/api/employees");
+      const data = await res.json();
+      setEmployees(data);
+    } catch (err) {
+      console.error("Error al cargar empleados:", err);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -30,11 +43,23 @@ const AgregarEmployee = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/employees", // ajusta la ruta si es diferente
-        employee
-      );
-      alert("Empleado agregado exitosamente");
+      const method = editingId ? "PUT" : "POST";
+      const url = editingId
+        ? `http://localhost:4000/api/employees/${editingId}`
+        : "http://localhost:4000/api/employees";
+
+      const res = await fetch(url, {
+        method,
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(employee),
+      });
+
+      if (!res.ok) throw new Error("Error en la operación");
+
+      alert(editingId ? "Empleado actualizado" : "Empleado agregado");
       setEmployee({
         name: "",
         lastName: "",
@@ -45,112 +70,99 @@ const AgregarEmployee = () => {
         dui: "",
         isVerified: false,
       });
-    } catch (error) {
-      console.error("Error al agregar empleado:", error);
-      alert("Hubo un error al agregar el empleado");
+      setEditingId(null);
+      fetchEmployees();
+    } catch (err) {
+      console.error("Error al guardar empleado:", err);
+      alert("Error al guardar");
+    }
+  };
+
+  const handleEdit = (emp) => {
+    setEmployee(emp);
+    setEditingId(emp._id);
+  };
+
+  const handleDelete = async (id) => {
+    if (!confirm("¿Estás seguro de eliminar este empleado?")) return;
+    try {
+      const res = await fetch(`http://localhost:4000/api/employees/${id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) throw new Error("Error al eliminar");
+      alert("Empleado eliminado");
+      fetchEmployees();
+    } catch (err) {
+      console.error(err);
+      alert("No se pudo eliminar");
     }
   };
 
   return (
-    <div className="add-employee-form">
-      <h2>Agregar Empleado</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Nombre:
-          <input
-            type="text"
-            name="name"
-            value={employee.name}
-            onChange={handleChange}
-            required
-            maxLength={100}
-          />
-        </label>
-        <label>
-          Apellido:
-          <input
-            type="text"
-            name="lastName"
-            value={employee.lastName}
-            onChange={handleChange}
-            required
-            maxLength={100}
-          />
-        </label>
-        <label>
-          Fecha de Nacimiento:
-          <input
-            type="date"
-            name="birthday"
-            value={employee.birthday}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={employee.email}
-            onChange={handleChange}
-            required
-            maxLength={100}
-          />
-        </label>
-        <label>
-          Contraseña:
-          <input
-            type="password"
-            name="password"
-            value={employee.password}
-            onChange={handleChange}
-            required
-            maxLength={100}
-          />
-        </label>
-        <label>
-          Teléfono:
-          <input
-            type="tel"
-            name="telephone"
-            value={employee.telephone}
-            onChange={handleChange}
-            required
-            maxLength={8}
-            pattern="\d{8}"
-            title="Debe contener 8 números"
-          />
-        </label>
-        <label>
-          DUI:
-          <input
-            type="text"
-            name="dui"
-            value={employee.dui}
-            onChange={handleChange}
-            required
-            maxLength={10}
-          />
-        </label>
-        <label>
-          Verificado:
-          <input
-            type="checkbox"
-            name="isVerified"
-            checked={employee.isVerified}
-            onChange={handleChange}
-          />
-        </label>
-        <button type="submit">Agregar Empleado</button>
-      </form>
-      <button
-  type="button"
-  className="view-employees-btn"
-  onClick={() => navigate("/verempleados")}
->
-  Ver Empleados
-</button>
+    <div className="container-employees">
+      <div className="add-employee-form">
+        <h2>{editingId ? "Editar Empleado" : "Agregar Empleado"}</h2>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Nombre:
+            <input type="text" name="name" value={employee.name} onChange={handleChange} required />
+          </label>
+          <label>
+            Apellido:
+            <input type="text" name="lastName" value={employee.lastName} onChange={handleChange} required />
+          </label>
+          <label>
+            Fecha de Nacimiento:
+            <input type="date" name="birthday" value={employee.birthday} onChange={handleChange} required />
+          </label>
+          <label>
+            Email:
+            <input type="email" name="email" value={employee.email} onChange={handleChange} required />
+          </label>
+          <label>
+            Contraseña:
+            <input type="password" name="password" value={employee.password} onChange={handleChange} required />
+          </label>
+          <label>
+            Teléfono:
+            <input type="tel" name="telephone" value={employee.telephone} onChange={handleChange} required />
+          </label>
+          <label>
+            DUI:
+            <input type="text" name="dui" value={employee.dui} onChange={handleChange} required />
+          </label>
+          <label>
+            Verificado:
+            <input type="checkbox" name="isVerified" checked={employee.isVerified} onChange={handleChange} />
+          </label>
+          <button type="submit">{editingId ? "Actualizar" : "Agregar"} Empleado</button>
+        </form>
+      </div>
+
+      <div className="employees-table-container">
+        <h3>Lista de Empleados</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {employees.map((emp) => (
+              <tr key={emp._id}>
+                <td>{emp.name} {emp.lastName}</td>
+                <td>{emp.email}</td>
+                <td>
+                  <button onClick={() => handleEdit(emp)}>✏️</button>
+                  <button onClick={() => handleDelete(emp._id)}>🗑️</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
