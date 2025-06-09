@@ -1,4 +1,4 @@
-import express from "express";
+import express, { json } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -13,6 +13,10 @@ import loginRoutes from "./src/routes/login.js";
 import logoutRoutes from "./src/routes/logout.js";
 import passwordRecoveryRoutes from "./src/routes/passwordRecovery.js";
 import blogRoutes from "./src/routes/blog.js";
+import swaggerUI from "swagger-ui-express"
+
+import fs from "fs";
+import path from "path";
 // import { validateAuthToken } from "./src/middlewares/validateAuthToken.js";
 
 const app = express();
@@ -28,6 +32,15 @@ app.use(express.json());
 
 // ✅ Middleware para parsear cookies
 app.use(cookieParser());
+
+//Utilizar el sistema de archivos para leer el json de swagger y ver mi documentación
+const swaggerDocument = JSON.parse(fs.readFileSync(
+  path.resolve("./CocaColaMern2.json"),
+"utf-8")
+)
+
+app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+
 
 // ✅ Servir imágenes u otros archivos desde /uploads
 app.use("/uploads", express.static("uploads"));
@@ -45,5 +58,7 @@ app.use("/api/login", loginRoutes);
 app.use("/api/logout", logoutRoutes);
 app.use("/api/passwordRecovery", passwordRecoveryRoutes);
 app.use("/api/blog", blogRoutes);
+
+
 
 export default app;
