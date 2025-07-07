@@ -14,6 +14,7 @@ import logoutRoutes from "./src/routes/logout.js";
 import passwordRecoveryRoutes from "./src/routes/passwordRecovery.js";
 import blogRoutes from "./src/routes/blog.js";
 import swaggerUI from "swagger-ui-express"
+import salesRoutes from "./src/routes/sales.js"
 
 import fs from "fs";
 import path from "path";
@@ -45,7 +46,7 @@ app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 // ✅ Servir imágenes u otros archivos desde /uploads
 app.use("/uploads", express.static("uploads"));
 
-// ✅ Tus rutas
+// ✅  rutas
 app.use("/api/products", productsRoutes);
 app.use("/api/customers", customersRoutes);
 app.use("/api/employees", EmployeesRoutes);
@@ -57,7 +58,10 @@ app.use("/api/registerClients", registerClientsRoutes);
 app.use("/api/login", loginRoutes);
 app.use("/api/logout", logoutRoutes);
 app.use("/api/passwordRecovery", passwordRecoveryRoutes);
+
 app.use("/api/blog", blogRoutes);
+
+app.use("/api/sales", salesRoutes)
 
 
 
