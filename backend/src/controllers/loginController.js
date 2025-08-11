@@ -11,6 +11,13 @@ import { config } from "../config.js";
 
 const loginController = {};
 
+//Declarar dos cosntantes
+//Una que guarde el maximo de intentos posibles
+//Y otras que guarde el timepo de bloqueo
+
+const maxAttempts = 3;
+const lockTime = 15 * 60 * 1000; //15 minutos
+
 loginController.login = async (req, res) => {
     const {email, password} = req.body;
 
@@ -44,12 +51,37 @@ loginController.login = async (req, res) => {
             return res.json({message: "User not found"});
         }
 
+        //Primero, determino si el usuario esta bloqueado
+        if(userType !== "Admin"){
+            if(userFound.lockTime > Date.now()){
+                 const minutosRestantes = Math.ceil((userFound.lockTime - Date.now()/ 60000))
+                 return res.status(403).json({
+                    message:"Cuenta bloqueada, intenta de nuevo en"+minutosRestantes})
+            }
+        }
+
         // Si no es administrador validamos la contraseña
         if(userType !== "Admin"){
-            const isMatch = bcryptjs.compare(password, userFound.password);
+            const isMatch = await bcryptjs.compare(password, userFound.password);
             if(!isMatch){
+                //Si la contrseña es incorrecta 
+                //incrementar los intentos fallidos
+                userFound.loginAttempts = userFound.loginAttempts + 1;
+                if(userFound.loginAttempts > maxAttempts){
+                    userFound.lockTime = Date.now() + lockTime;
+                    await userFound.save()
+                    return res.status(403).json({message:"Usuario bloqueado"})
+                }
+
+                await userFound.save()
+
+
                 return res.json({message: "Invalid password"})
             }
+
+            userFound.loginAttempts = 0;
+            userFound.lockTime =null;
+            await userFound.save();
         }
 
         // Generar token
