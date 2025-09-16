@@ -15,6 +15,7 @@ import passwordRecoveryRoutes from "./src/routes/passwordRecovery.js";
 import blogRoutes from "./src/routes/blog.js";
 import swaggerUI from "swagger-ui-express"
 import salesRoutes from "./src/routes/sales.js"
+import limiter from "./src/middlewares/rateLimiter.js";
 
 import fs from "fs";
 import path from "path";
@@ -28,11 +29,13 @@ app.use(cors({
   credentials: true
 }));
 
-// ✅ Middleware para parsear JSON
+//  Middleware para parsear JSON
 app.use(express.json());
 
-// ✅ Middleware para parsear cookies
+//  Middleware para parsear cookies
 app.use(cookieParser());
+
+app.use(limiter)
 
 //Utilizar el sistema de archivos para leer el json de swagger y ver mi documentación
 const swaggerDocument = JSON.parse(fs.readFileSync(
@@ -43,10 +46,10 @@ const swaggerDocument = JSON.parse(fs.readFileSync(
 app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 
-// ✅ Servir imágenes u otros archivos desde /uploads
+//  Servir imágenes u otros archivos desde /uploads
 app.use("/uploads", express.static("uploads"));
 
-// ✅  rutas
+//  rutas
 app.use("/api/products", productsRoutes);
 app.use("/api/customers", customersRoutes);
 app.use("/api/employees", EmployeesRoutes);
